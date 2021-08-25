@@ -1,0 +1,243 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Catagory RESTful API",
+        "description": "API spec for catagory RESTful Api",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api/v1"
+        }
+    ],
+    "paths": {
+        "/catagories": {
+            "get": {
+                "security": [{"CatagoryAuth" :[]}],
+                "tags": [
+                    "Catagory API"
+                ],
+                "summary": "Get all catagories",
+                "responses": {
+                    "200": {
+                        "description": "success get all catagories",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Catagory"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [{"CatagoryAuth" :[]}],
+                "tags": [
+                    "Catagory API"
+                ],
+                "summary": "Create new catagory",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref" : "#/components/schemas/CreateOrUpadteCatagory"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success get all catagories",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Catagory"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/catagories/{catagoryId}" : {
+            "get" :{
+                "security": [{"CatagoryAuth" :[]}],
+                "tags": ["Catagory API"],
+                "summary": "Get catagory by id",
+                "description": "Get catagory by id",
+                "parameters": [
+                    {
+                        "schema" :{},
+                        "required": true,
+                        "name": "catagoryId",
+                        "in": "path",
+                        "description": "Catagory id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success get catagorie by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Catagory"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put" :{
+                "security": [{"CatagoryAuth" :[]}],
+                "tags": ["Catagory API"],
+                "summary": "Update catagory by id",
+                "description": "Update catagory by id",
+                "parameters": [
+                    {
+                        "schema" :{},
+                        "required": true,
+                        "name": "catagoryId",
+                        "in": "path",
+                        "description": "Catagory id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref" : "#/components/schemas/CreateOrUpadteCatagory"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success Update catagorie by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Catagory"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete" :{
+                "security": [{"CatagoryAuth" :[]}],
+                "tags": ["Catagory API"],
+                "summary": "Delete catagory by id",
+                "description": "Delete catagory by id",
+                "parameters": [
+                    {
+                        "schema" :{},
+                        "required": true,
+                        "name": "catagoryId",
+                        "in": "path",
+                        "description": "Catagory id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success Delete catagorie by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "CatagoryAuth" :{
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-API-Key",
+                "description": "Authentication for catagore API"
+            }
+        },
+        "schemas": {
+            "Catagory": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CreateOrUpadteCatagory": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
