@@ -27,8 +27,8 @@ func NewCatagoryService(catagoryRepository repository.CatagoryRepository, DB *sq
 }
 
 func (service *CatagoryServiceImpl) Create(ctx context.Context, request api.CatagoryCreateRequest) api.CatagoryResponse {
-	errVal := service.Validate.Struct(request)
-	helper.PanicIfError(errVal)
+	err := service.Validate.Struct(request)
+	helper.PanicIfError(err)
 
 	tx, err := service.DB.Begin()
 	helper.PanicIfError(err)

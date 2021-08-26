@@ -14,7 +14,11 @@ func NewAuthMiddleware(handler http.Handler) *AuthMiddleware {
 	return &AuthMiddleware{Handler: handler}
 }
 func (middleware *AuthMiddleware) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
+	writer.Header().Add("Access-Control-Allow-Origin", "*")
+	writer.Header().Add("Access-Control-Allow-Credentials", "true")
+	writer.Header().Add("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-API-Key, Authorization, accept")
 	if request.Header.Get("X-API-Key") == "rahasia" {
+
 		middleware.Handler.ServeHTTP(writer, request)
 	} else {
 		writer.Header().Set("Content-Type", "application/json")
