@@ -1,0 +1,32 @@
+version: '3.8'
+
+services: 
+    catagory-service:
+        build: .
+        image: catagory-service:testV2
+        container_name: catagory-service-CATAGORY
+        environment: 
+            - PORT=3000
+            - MYSQL_HOST=sevice-mysql
+        ports:
+            - 3000:3000
+        networks: 
+            - my-network-v2
+        depends_on: 
+            - sevice-mysql
+
+    sevice-mysql:
+        image: mysql:latest
+        container_name: mysql-service-CATAGORY
+        environment: 
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+        ports: 
+            -  3306 
+        volumes: 
+            - $PWD/data_mysql:/var/lib/mysql
+            - ./schema.sql:/data/application/init.sql
+        command: --init-file /data/application/init.sql
+        networks:
+            - my-network-v2 
+networks: 
+    my-network-v2:

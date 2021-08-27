@@ -3,16 +3,18 @@ package app
 import (
 	"database/sql"
 	"fmt"
+	"os"
 	"time"
 )
 
 const (
-	host     = "localhost"
 	port     = 3306
 	user     = "root"
 	password = ""
 	dbname   = "belajar_golang_restful_api"
 )
+
+var host string = os.Getenv("MYSQL_HOST")
 
 func NewDB() *sql.DB {
 	mysqlInfo := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true",
